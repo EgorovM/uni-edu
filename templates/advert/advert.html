@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<!-- Header image -->
+<div class="portfolio-image ui-rect ui-rect-30 ui-bg-cover" style="background-image: url('/media/{{advert.image}}');"></div>
+
+<!-- Content -->
+<div class="bg-white">
+  <div class="container px-3">
+    <div class="col-lg-10 col-xl-8 py-5 px-0 mx-auto">
+
+      <!-- Article caption -->
+      <div class="pb-5">
+        <div class="text-muted text-tiny mb-2">{{ advert.pub_date|naturaltime }}</div>
+        <h1 class="font-weight-bold">
+          {{ advert.title }}
+        </h1>
+        <!-- Tags -->
+        <div class="d-flex small">
+          <a href="#" class="badge badge-outline-default d-block font-weight-normal mt-2 mr-2">{{ advert.get_specialization }}</a>
+        </div>
+      </div>
+      <!-- / Article caption -->
+
+      {{ advert.content|safe }}
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

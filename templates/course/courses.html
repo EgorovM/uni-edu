@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Layout content -->
+<div class="layout-content">
+
+  <!-- Content -->
+  <div class="container-fluid flex-grow-1 container-p-y">
+
+    <h4 class="d-flex flex-wrap justify-content-between align-items-center w-100 font-weight-bold pt-2 mb-4">
+      <div class="col-12 col-md px-0 pb-2">Дополнительное образование</div>
+      <div class="col-12 col-md-3 px-0 pb-2">
+        <input type="text" class="form-control" placeholder="Поиск...">
+      </div>
+    </h4>
+
+    <ul class="nav bg-lighter container-p-x py-1 container-m--x mb-4">
+      <li class="nav-item">
+        <a class="nav-link text-dark font-weight-bold pl-0" href="/courses/">Все кружки </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-muted" href="/courses/?type=CE">Детское образовательное учреждение</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-muted" href="/courses/?type=SE">Образовательное учреждение</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-muted" href="/courses/?type=AE">Дополнительное образование</a>
+      </li>
+    </ul>
+
+    <div class="row">
+      {% for course in courses %}
+      <div class="col-sm-6 col-xl-4">
+        <div class="card mb-4">
+          <div class="w-100">
+            <a href="" class="card-img-top d-block ui-rect-60 ui-bg-cover" style="background-image: url('/media/{{ course.school.image }}');">
+              <div class="d-flex justify-content-between align-items-end ui-rect-content p-3">
+                <div class="flex-shrink-1">
+                  <span class="badge badge-primary">{{ course.get_specialization }}</span>
+                </div>
+                <div class="text-big">
+                  <div class="badge badge-dark font-weight-bold"></div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="card-body">
+            <h5 class="mb-3"><a href="{% url 'course' course.id %}" class="text-dark">{{ course.name }}</a></h5>
+            <p class="text-muted mb-3">{{ course.short_desc }}</p>
+            <div class="media">
+              <div class="media-body">
+                <div class="text-muted small">
+                  <i class="ion ion-md-school text-primary"></i>
+                  <span>{{ course.school.name }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <hr class="border-light mt-2 mb-4">
+
+
+  </div>
+  <!-- / Content -->
+
+  <!-- Layout footer -->
+  <nav class="layout-footer footer bg-footer-theme">
+    <div class="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
+      <div class="pt-3">
+        <span class="footer-text font-weight-bolder">YkLab</span> ©
+      </div>
+      <div>
+        <a href="javascript:void(0)" class="footer-link pt-3">О нас</a>
+        <a href="javascript:void(0)" class="footer-link pt-3 ml-4">Помощь</a>
+        <a href="javascript:void(0)" class="footer-link pt-3 ml-4">Конкакты</a>
+      </div>
+    </div>
+  </nav>
+  <!-- / Layout footer -->
+
+</div>
+<!-- Layout content -->
+
+{% endblock%}

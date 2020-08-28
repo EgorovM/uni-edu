@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<!-- Header image -->
+<div class="portfolio-image ui-rect ui-rect-30 ui-bg-cover" style="background-image: url('/media/course/course-bg.jpg');"></div>
+
+<!-- Content -->
+<div class="bg-white">
+  <div class="container px-3">
+    <div class="col-lg-10 col-xl-8 py-5 px-0 mx-auto">
+
+      <!-- Article caption -->
+      <div class="pb-5">
+        <div class="text-muted text-tiny mb-2">{{ course.pub_date|naturalday }}</div>
+        <h1 class="font-weight-bold">
+          {{ course.name }}
+        </h1>
+        <!-- Tags -->
+        <div class="d-flex small">
+          <a href="#" class="badge badge-outline-default d-block font-weight-normal mt-2 mr-2">{{ course.get_specialization }}</a>
+        </div>
+      </div>
+      <!-- / Article caption -->
+
+      {{ course.description|safe }}
+
+    </div>
+  </div>
+</div>
+
+
+<h4 class="font-secondary text-center font-weight-semibold py-5 m-0">ОТЗЫВОВ: <span class="text-light">{{ course.feedback_set.all | length}}</span></h4>
+
+<div class="container px-3">
+  <div class="col-lg-10 col-xl-8 px-0 mx-auto">
+
+    {% for feedback in course.feedback_set.all %}
+      <div class="bg-white small mb-4">
+        <div class="p-4">
+          <div class="media align-items-center">
+            <img src="assets/img/avatars/12-small.png" alt class="d-block ui-w-40 rounded-circle">
+            <div class="media-body ml-3">
+              <div class="text-dark font-weight-semibold">{{feedback.author_name}}</div>
+              <div class="text-muted small">{{feedback.pub_date.date}}</div>
+            </div>
+          </div>
+          <hr>
+          {{feedback.content|safe}}
+        </div>
+      </div>
+    {% endfor %}
+    <!-- Form -->
+    <h5 class="font-secondary font-weight-semibold pt-5 mb-4">ОСТАВЬТЕ ОТЗЫВ</h5>
+    <form class="pb-5" action="{% url 'course' course.id %}" method="POST">
+      {% csrf_token %}
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <input type="text" name="author_name" class="portfolio-form-control form-control form-control-lg rounded-0" placeholder="Как в вам обращаться?" value="{{request.user.student.name}}">
+        </div>
+      </div>
+      <div class="form-group">
+        <textarea name="content" rows="6" class="portfolio-form-control form-control form-control-lg rounded-0" placeholder="СООБЩЕНИЕ"></textarea>
+      </div>
+      <button type="submit" name="send_feedback" class="btn btn-primary btn-lg rounded-0 font-weight-semibold">ВЫЛОЖИТЬ</button>
+    </form>
+    <!-- / Form -->
+
+  </div>
+</div>
+
+{% endblock %}

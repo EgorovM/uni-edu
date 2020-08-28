@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Layout content -->
+<div class="layout-content">
+
+  <!-- Content -->
+  <div class="container-fluid flex-grow-1 container-p-y">
+
+    <h4 class="d-flex flex-wrap justify-content-between align-items-center w-100 font-weight-bold pt-2 mb-4">
+      <div class="col-12 col-md px-0 pb-2">{{full_type}}</div>
+      <div class="col-12 col-md-3 px-0 pb-2">
+        <input type="text" class="form-control" placeholder="Search...">
+      </div>
+    </h4>
+
+    <ul class="nav bg-lighter container-p-x py-1 container-m--x mb-4">
+      <li class="nav-item">
+        <a class="nav-link text-dark font-weight-bold pl-0" href="{% url 'schools' %}?type=SE">Школы</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-muted" href="{% url 'schools' %}?type=CE">Детские сады</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-muted" href="{% url 'schools' %}?type=AE">Дополнительное образование</a>
+      </li>
+    </ul>
+
+    <div class="card mb-4">
+      <ul class="list-group list-group-flush">
+        {% for school in schools %}
+        <li class="list-group-item py-4">
+          <div class="media flex-wrap">
+            <div class="d-none d-sm-block ui-w-140">
+              <a href="{% url 'school' school.id %}" class="d-block ui-rect-67 ui-bg-cover" style="background-image: url('/media/{{school.image}}');"></a>
+            </div>
+            <div class="media-body ml-sm-4">
+              <h5 class="mb-2">
+                <div class="float-right font-weight-semibold ml-3">{{school.locality}}</div>
+                <a href="{% url 'school' school.id %}" class="text-dark">{{school.name}}</a>&nbsp;
+              </h5>
+              <div class="d-flex flex-wrap align-items-center mb-2">
+                <div class="text-muted small">
+                  <i class="ion ion-ios-school text-primary"></i>
+                  <span>{{school.course_set.all|length}} курса</span>
+                </div>
+                <div class="mr-3"></div>
+                <div class="text-muted small">
+                  <i class="ion ion-ios-school text-primary"></i>
+                  <span>{{school.amount}}</span>
+                </div>
+              </div>
+              <div>Дети учаться с {{school.min_grade}} по {{school.max_grade}} классы.</div>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <!-- / Content -->
+</div>
+<!-- Layout content -->
+
+{% endblock %}
