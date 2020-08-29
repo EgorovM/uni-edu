@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load humanize %}
 
 {% block content %}
 <!-- Header image -->
-<div class="portfolio-image ui-rect ui-rect-30 ui-bg-cover" style="background-image: url('/media/course/course-bg.jpg');"></div>
+<div class="portfolio-image ui-rect ui-rect-30 ui-bg-cover" style="background-image: url({% static 'assets/img/course/course-bg.jpg' %});"></div>
 
 <!-- Content -->
 <div class="bg-white">
