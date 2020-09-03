@@ -1,9 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'base-with-sidenav.html' %}
 {% load humanize %}
 
 {% block content %}
 <!-- Header image -->
-<div class="portfolio-image ui-rect ui-rect-30 ui-bg-cover" style="background-image: url('/media/{{advert.image}}');"></div>
+<div class="portfolio-image ui-rect ui-bg-cover" style="background-image: url('/media/{{advert.image}}');"></div>
 
 <!-- Content -->
 <div class="bg-white">
@@ -20,6 +20,9 @@
         <div class="d-flex small">
           <a href="#" class="badge badge-outline-default d-block font-weight-normal mt-2 mr-2">{{ advert.get_specialization }}</a>
         </div>
+        {% if advert.school == request.user.school %}
+          <a href="{% url 'edit_advert' advert.id %}"><button type="button" class="btn btn-warning btn-round text-dark">Редактировать</button></a>
+        {% endif %}
       </div>
       <!-- / Article caption -->
 

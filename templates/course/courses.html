@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base-with-sidenav.html' %}
 
 {% block content %}
 
@@ -9,7 +9,7 @@
   <div class="container-fluid flex-grow-1 container-p-y">
 
     <h4 class="d-flex flex-wrap justify-content-between align-items-center w-100 font-weight-bold pt-2 mb-4">
-      <div class="col-12 col-md px-0 pb-2">Дополнительное образование</div>
+      <div class="col-12 col-md px-0 pb-2">Кружки</div>
       <div class="col-12 col-md-3 px-0 pb-2">
         <input type="text" class="form-control" placeholder="Поиск...">
       </div>
@@ -33,9 +33,9 @@
     <div class="row">
       {% for course in courses %}
       <div class="col-sm-6 col-xl-4">
-        <div class="card mb-4">
+        <div class="card mb-4" style="position: relative">
           <div class="w-100">
-            <a href="" class="card-img-top d-block ui-rect-60 ui-bg-cover" style="background-image: url('/media/{{ course.school.image }}');">
+            <a href="{% url 'school' course.school.id %}" class="card-img-top d-block ui-rect-60 ui-bg-cover" style="background-image: url('/media/{{ course.school.image }}');">
               <div class="d-flex justify-content-between align-items-end ui-rect-content p-3">
                 <div class="flex-shrink-1">
                   <span class="badge badge-primary">{{ course.get_specialization }}</span>
@@ -46,6 +46,9 @@
               </div>
             </a>
           </div>
+          {% if course.school == request.user.school %}
+            <a href="{% url 'edit_course' course.id %}" class="btn btn-warning text-dark">Редактировать</a>
+          {% endif %}
           <div class="card-body">
             <h5 class="mb-3"><a href="{% url 'course' course.id %}" class="text-dark">{{ course.name }}</a></h5>
             <p class="text-muted mb-3">{{ course.short_desc }}</p>

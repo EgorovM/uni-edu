@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'school',
     'student',
     'course',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -107,6 +108,12 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# LOGIN
+
+AUTH_USER_MODEL = 'accounts.User'
+LOGIN_REDIRECT_URL = '/'
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -135,7 +142,7 @@ MEDIA_URL = '/media/'
 # https://pypi.org/project/django-richtextfield/
 
 DJRICHTEXTFIELD_CONFIG = {
-    'js': ['//cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js'],
+    'js': ['//cdn.tiny.cloud/1/8ljhhcb398ijjqgrxg4xuknn9u6ygpg9v1f5s5auyh8n7c6h/tinymce/5/tinymce.min.js'],
     'init_template': 'djrichtextfield/init/tinymce.js',
     'settings': {
         'menubar': False,

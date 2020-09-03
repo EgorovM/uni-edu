@@ -1,0 +1,313 @@
+{% load static %}
+{% load humanize %}
+
+<!DOCTYPE html>
+
+<html lang="en" class="default-style">
+
+<head>
+  <title>{% if title %}{{ title }}{% else %}Дополнительное образование{% endif %}</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet">
+
+  <!-- Icon fonts -->
+  <link rel="stylesheet" href="{% static 'assets/vendor/fonts/fontawesome.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendor/fonts/ionicons.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendor/fonts/linearicons.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendor/fonts/open-iconic.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendor/fonts/pe-icon-7-stroke.css' %}">
+
+  <!-- Core stylesheets -->
+  <link rel="stylesheet" href="{% static 'assets/vendor/css/rtl/bootstrap.css' %}" class="theme-settings-bootstrap-css">
+  <link rel="stylesheet" href="{% static 'assets/vendor/css/rtl/appwork.css' %}" class="theme-settings-appwork-css">
+  <link rel="stylesheet" href="{% static 'assets/vendor/css/rtl/theme-corporate.css' %}" class="theme-settings-theme-css">
+  <link rel="stylesheet" href="{% static 'assets/vendor/css/rtl/colors.css' %}" class="theme-settings-colors-css">
+  <link rel="stylesheet" href="{% static 'assets/vendor/css/rtl/uikit.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}">
+
+  <script src="{% static 'assets/vendor/js/material-ripple.js' %}"></script>
+  <script src="{% static 'assets/vendor/js/layout-helpers.js' %}"></script>
+
+  <!-- Theme settings -->
+  <!-- This file MUST be included after core stylesheets and layout-helpers.js in the <head> section -->
+  <script src="{% static 'assets/vendor/js/theme-settings.js' %}"></script>
+
+
+  <!-- Core scripts -->
+  <script src="{% static 'assets/vendor/js/pace.js' %}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Libs -->
+  <link rel="stylesheet" href="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendor/libs/toastr/toastr.css' %}">
+</head>
+
+<body>
+  <div class="page-loader">
+    <div class="bg-primary"></div>
+  </div>
+
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-2">
+    <div class="layout-inner">
+
+      <!-- Layout sidenav -->
+      <div id="layout-sidenav" class="layout-sidenav sidenav sidenav-vertical bg-dark">
+
+        <!-- Brand demo (see assets/css/demo/demo.css) -->
+        <div class="app-brand demo">
+          <span class="app-brand-logo demo bg-primary">
+            <i class="ion ion-md-outline text-white"></i>
+          </span>
+          <a href="/courses" class="app-brand-text demo sidenav-text font-weight-normal ml-2">YkLab</a>
+          <a href="javascript:void(0)" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
+            <i class="ion ion-md-menu align-middle"></i>
+          </a>
+        </div>
+
+        <div class="sidenav-divider mt-0"></div>
+
+        <!-- Links -->
+        <ul class="sidenav-inner py-1">
+          <li class="sidenav-item">
+            <a href="{% url 'adverts' %}" class="sidenav-link"><i class="sidenav-icon ion ion-ios-information-circle-outline"></i>
+              <div>Объявления</div>
+            </a>
+          </li>
+          <!-- Dashboards -->
+          <li class="sidenav-item">
+            <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-apps"></i>
+              <div>Кружки</div>
+            </a>
+
+            <ul class="sidenav-menu">
+              <li class="sidenav-item">
+                <a href="{% url 'courses' %}" class="sidenav-link">
+                  <div>Все кружки</div>
+                </a>
+              </li>
+              <li class="sidenav-item">
+                <a href="{% url 'courses' %}?type=CE" class="sidenav-link">
+                  <div>Дошкольные образовательные учреждения</div>
+                </a>
+              </li>
+              <li class="sidenav-item">
+                <a href="{% url 'courses' %}?type=SE" class="sidenav-link">
+                  <div>Образовательные учреждения</div>
+                </a>
+              </li>
+              <li class="sidenav-item">
+                <a href="{% url 'courses' %}?type=AE" class="sidenav-link">
+                  <div>Дополнительное образование</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidenav-item">
+            <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-md-school"></i>
+              <div>Образовательные учреждения</div>
+            </a>
+
+            <ul class="sidenav-menu">
+              <li class="sidenav-item">
+                <a href="{% url 'schools' %}?type=CE" class="sidenav-link">
+                  <div>Детсады</div>
+                </a>
+              </li>
+              <li class="sidenav-item">
+                <a href="{% url 'schools' %}?type=SE" class="sidenav-link">
+                  <div>Школы</div>
+                </a>
+              </li>
+              <li class="sidenav-item">
+                <a href="{% url 'schools' %}?type=AE" class="sidenav-link">
+                  <div>Дополнительное образование</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidenav-item">
+            <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-settings"></i>
+              <div>Инструменты</div>
+            </a>
+
+            <ul class="sidenav-menu">
+              <li class="sidenav-item">
+                <a href="{% url 'my_courses' %}" class="sidenav-link">
+                  <div>Мои курсы</div>
+                </a>
+              </li>
+              {% if user.type == 'TH' %}
+              <li class="sidenav-item">
+                <a href="{% url 'courses_requests' %}" class="sidenav-link">
+                  <div>Поданные заявки</div>
+                </a>
+              </li>
+              {% elif user.type == 'PR' %}
+              {% elif user.type == 'SH' %}
+              <li class="sidenav-item">
+                <a href="{% url 'adverts' %}?school_name={{request.user.name}}" class="sidenav-link">
+                  <div>Мои объявления</div>
+                </a>
+              </li>
+              <li class="sidenav-item">
+                <a href="{% url 'add_advert' %}" class="sidenav-link">
+                  <div>Добавить объявление</div>
+                </a>
+              </li>
+              <div class="sidenav-divider mt-0"></div>
+              <li class="sidenav-item">
+                <a href="{% url 'teachers' request.user.school.id %}" class="sidenav-link">
+                  <div>Мои учителя</div>
+                </a>
+              </li>
+              <li class="sidenav-item">
+                <a href="{% url 'add_teacher' %}" class="sidenav-link">
+                  <div>Добавить учителя</div>
+                </a>
+              </li>
+              <div class="sidenav-divider"></div>
+              <li class="sidenav-item">
+                <a href="{% url 'add_course' %}" class="sidenav-link">
+                  <div>Добавить курс</div>
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- / Layout sidenav -->
+
+      <!-- Layout container -->
+      <div class="layout-container">
+        <!-- Layout navbar -->
+        <nav class="layout-navbar navbar navbar-expand-lg align-items-lg-center bg-white container-p-x" id="layout-navbar">
+
+          <!-- Brand demo (see assets/css/demo/demo.css) -->
+          <a href="index.html" class="navbar-brand app-brand demo d-lg-none py-0 mr-4">
+            <span class="app-brand-logo demo bg-primary">
+            </span>
+            <span class="app-brand-text demo font-weight-normal ml-2">YkLab</span>
+          </a>
+
+          <!-- Sidenav toggle (see assets/css/demo/demo.css) -->
+          <div class="layout-sidenav-toggle navbar-nav d-lg-none align-items-lg-center mr-auto">
+            <a class="nav-item nav-link px-0 mr-lg-4" href="javascript:void(0)">
+              <i class="ion ion-md-menu text-large align-middle"></i>
+            </a>
+          </div>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#layout-navbar-collapse">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="navbar-collapse collapse" id="layout-navbar-collapse">
+            <!-- Divider -->
+            <hr class="d-lg-none w-100 my-2">
+
+            <div class="navbar-nav align-items-lg-center">
+              <!-- Search -->
+              <label class="nav-item navbar-text navbar-search-box p-0 active">
+                <i class="ion ion-ios-search navbar-icon align-middle"></i>
+                <span class="navbar-search-input pl-2">
+                  <input type="text" class="form-control navbar-text mx-2" placeholder="Поиск..." style="width:200px">
+                </span>
+              </label>
+            </div>
+
+            <div class="navbar-nav align-items-lg-center ml-auto">
+              <div class="demo-navbar-notifications nav-item dropdown mr-lg-3">
+                <a class="nav-link dropdown-toggle hide-arrow" href="#" data-toggle="dropdown">
+                  <i class="ion ion-md-notifications-outline navbar-icon align-middle"></i>
+                  {% if request.user.notification_set.all.count > 0 %}
+                    <span class="badge badge-primary badge-dot indicator"></span>
+                  {% endif %}
+                  <span class="d-lg-none align-middle">&nbsp; Уведомления</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <div class="bg-primary text-center text-white font-weight-bold p-3">
+                    Новых уведомлений: {{request.user.notification_set.all|length}}
+                  </div>
+                  <div class="list-group list-group-flush">
+                    {% for notification in request.user.notification_set.all reversed %}
+                      <a href="javascript:void(0)" class="list-group-item list-group-item-action media d-flex align-items-center">
+                        <div class="ui-icon ui-icon-sm ion ion-md-home bg-secondary border-0 text-white"></div>
+                        <div class="media-body line-height-condenced ml-3">
+                          <div class="text-dark"></div>
+                          <div class="text-dark">{{notification.title}}</div>
+                          <div class="text-light small mt-1">
+                            {{notification.content}}
+                          </div>
+                          <div class="text-light small mt-1">{{notification.pub_date|naturaltime}}</div>
+                        </div>
+                      </a>
+                    {% endfor %}
+                  </div>
+                  <a href="javascript:void(0)" class="d-block text-center text-light small p-2 my-1">Показать все уведомления</a>
+                </div>
+              </div>
+
+              <!-- Divider -->
+              <div class="nav-item d-none d-lg-block text-big font-weight-light line-height-1 opacity-25 mr-3 ml-1">|</div>
+
+              <div class="demo-navbar-user nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                  <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
+                    <span class="px-1 mr-lg-2 ml-2 ml-lg-0">
+                      {{request.user.name}}<br>
+                    </span>
+                  </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <span class="dropdown-item">{{request.user.full_type}}</span>
+                  {% if request.user.type == "SH" %}
+                    <a href="{% url 'school' request.user.school.id %}" class="dropdown-item"><i class="ion ion-ios-person text-lightest"></i> &nbsp; Мой профиль</a>
+                    <a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-md-settings text-lightest"></i> &nbsp; Настройки</a>
+                  {% elif request.user.type == "TH" %}
+                    <a href="{% url 'teacher' request.user.teacher.id %}" class="dropdown-item"><i class="ion ion-ios-person text-lightest"></i> &nbsp; Мой профиль</a>
+                    <a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-md-settings text-lightest"></i> &nbsp; Настройки</a>
+                  {% elif request.user.type == "PR"%}
+                    <a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-ios-person text-lightest"></i> &nbsp; Мой профиль</a>
+                    <a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-md-settings text-lightest"></i> &nbsp; Настройки</a>
+                  {% endif %}
+                  <div class="dropdown-divider"></div>
+                  <a href="{% url 'accounts:logout' %}" class="dropdown-item"><i class="ion ion-ios-log-out text-danger"></i> &nbsp; Выйти</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <!-- / Layout navbar -->
+
+        {% block content %}
+        {% endblock %}
+      </div>
+      <!-- / Layout container -->
+    </div>
+    <!-- Overlay -->
+    <div class="layout-overlay layout-sidenav-toggle"></div>
+  </div>
+  <!-- / Layout wrapper -->
+
+  <!-- Core scripts -->
+  <script src="{% static 'assets/vendor/libs/popper/popper.js' %}"></script>
+  <script src="{% static 'assets/vendor/js/bootstrap.js' %}"></script>
+  <script src="{% static 'assets/vendor/js/sidenav.js' %}"></script>
+
+  <!-- Libs -->
+  <script src="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+  <script src="{% static 'assets/vendor/libs/toastr/toastr.js' %}"></script>
+
+  <!-- Demo -->
+  <script src="{% static 'assets/js/demo.js' %}"></script>
+
+</body>
+
+</html>

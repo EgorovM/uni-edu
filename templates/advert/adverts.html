@@ -1,4 +1,4 @@
-{% extends 'base.html'%}
+{% extends 'base-with-sidenav.html'%}
 {% load humanize %}
 
 {% block content %}
@@ -26,12 +26,16 @@
 
           <div class="d-flex flex-wrap mt-3">
             <a class="text-light" href="{% url 'school' advert.school.id %}">
-              <div class="mr-3"><i class="vacancy-tooltip ion ion-ios-school text-light" title="Department"></i>&nbsp; {{advert.school}}</div></div>
+              <div class="mr-3"><i class="vacancy-tooltip ion ion-ios-school text-light" title="Department"></i>&nbsp; {{advert.school}}</div>
             </a>
+          </div>
           <div class="mt-3 mb-4">
             {{advert.short_desc|safe}}
           </div>
           <a href="{% url 'advert' advert.id %}"><button type="button" class="btn btn-primary btn-round">Больше</button></a>
+          {% if advert.school == request.user.school %}
+            <a href="{% url 'edit_advert' advert.id %}"><button type="button" class="btn btn-warning btn-round text-dark">Редактировать</button></a>
+          {% endif %}
         </div>
 
         <hr class="border-light m-0">

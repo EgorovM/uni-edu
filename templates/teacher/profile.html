@@ -1,0 +1,160 @@
+{% extends 'base-with-sidenav.html' %}
+
+{% block content %}
+<!-- Layout content -->
+<div class="layout-content">
+
+  <!-- Content -->
+  <div class="container-fluid flex-grow-1 container-p-y">
+
+    <!-- Header -->
+    <div class="bg-white container-m--x container-m--y mb-4">
+      <div class="media col-md-10 col-lg-8 col-xl-7 py-5 mx-auto">
+        <img src="/media/{{ teacher.image }}" alt class="rounded-circle" style="width: 6.5em; height: 6.5em; object-fit: cover">
+        <div class="media-body ml-5">
+          <h4 class="font-weight-bold mb-4">{{ teacher.name }}</h4>
+
+          <div class="text-muted mb-4">
+            {{teacher.education}}
+          </div>
+        </div>
+      </div>
+      <hr class="m-0">
+    </div>
+    <!-- Header -->
+
+    <div class="row">
+      <div class="col">
+
+        <!-- Info -->
+        <div class="card mb-4">
+          <div class="card-body">
+
+            <div class="row mb-2">
+              <div class="col-md-3 text-muted">День рождения:</div>
+              <div class="col-md-9">
+                {{ teacher.birthday }}
+              </div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-md-3 text-muted">Город:</div>
+              <div class="col-md-9">
+                <a href="javascript:void(0)" class="text-dark">{{  teacher.city }}</a>
+              </div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-md-3 text-muted">Языки:</div>
+              <div class="col-md-9">
+                <a href="javascript:void(0)" class="text-dark"> {{ teacher.languages }}</a>
+              </div>
+            </div>
+
+            <h6 class="my-3">Контакты</h6>
+
+            <div class="row mb-2">
+              <div class="col-md-3 text-muted">Телефонный номер:</div>
+              <div class="col-md-9">
+                {{ teacher.telephone }}
+              </div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-md-3 text-muted">Почта:</div>
+              <div class="col-md-9">
+                {{ teacher.email }}
+              </div>
+            </div>
+
+            <h6 class="my-3">Обо мне</h6>
+
+            <div class="row mb-2">
+              <div class="col-md-12">
+                {{teacher.description|safe}}
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer text-center p-0">
+            <div class="row no-gutters row-bordered row-border-light">
+              <a href="javascript:void(0)" class="d-flex col flex-column text-dark py-3">
+                <div class="font-weight-bold">{{ teacher.course_set.all|length }}</div>
+                <div class="text-muted small">введет курсов</div>
+              </a>
+              <a href="javascript:void(0)" class="d-flex col flex-column text-dark py-3">
+                <div class="font-weight-bold">{{ teacher.experience }}</div>
+                <div class="text-muted small">стаж</div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- / Info -->
+
+        <!-- Posts -->
+        {% for course in teacher.course_set.all %}
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="ui-bordered">
+                <a href="{% url 'course' course.id %}" class="ui-rect ui-bg-cover text-white" style="background-image: url('/media/{{ course.school.image }}');">
+                  <div class="d-flex justify-content-start align-items-end ui-rect-content p-2">
+                    <div class="bg-dark rounded text-white small py-1 px-2">
+                      <i class="ion ion-md-link"></i> &nbsp; course/{{course.id}}
+                    </div>
+                  </div>
+                </a>
+                <div class="p-4">
+                  <h5> {{ course.name }}</h5>
+                  {{ course.short_desc }}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+        <!-- / Posts -->
+
+      </div>
+      <div class="col-xl-4">
+
+        <!-- Side info -->
+        <div class="card mb-4">
+          <div class="card-body">
+            &nbsp;
+            <a href="javascript:void(0)" class="btn icon-btn btn-default md-btn-flat btn-round">
+              <span class="ion ion-md-mail"></span>
+            </a>
+            {% if teacher.school == request.user.school or teacher == request.user.teacher %}<a href="{% url 'edit_teacher' teacher.id %}" class="btn btn-warning text-dark ml-3">Редактировать</a>{% endif %}
+          </div>
+          <hr class="border-light m-0">
+          <div class="card-body">
+            <p class="mb-2">
+              <i class="ion ion-md-desktop ui-w-30 text-center text-lighter"></i><a href="{% url 'school' teacher.school.id %}">{{ teacher.school.name }}</a></p>
+            <p class="mb-2">
+              <i class="ion ion-ios-navigate ui-w-30 text-center text-lighter"></i> {{ teacher.country }}</p>
+            <p class="mb-0">
+              <i class="ion ion-md-globe ui-w-30 text-center text-lighter"></i>
+              <a href="javascript:void(0)" class="text-dark">{{ teacher.website }}</a>
+            </p>
+          </div>
+          <hr class="border-light m-0">
+          <div class="card-body">
+            <a href="https://twitter.com/{{ teacher.vk_link }}" class="d-block text-dark mb-2">
+              <i class="ion ion-logo-twitter ui-w-30 text-center text-twitter"></i> @{{ teacher.twitter_link }}
+            </a>
+            <a href="https://vk.com/{{ teacher.vk_link }}" class="d-block text-dark mb-2">
+              <i class="ion ion-logo-vk ui-w-30 text-center text-facebook"></i> {{ teacher.vk_link }}
+            </a>
+            <a href="https://instagram.com/{{ teacher.vk_link }}" class="d-block text-dark mb-0">
+              <i class="ion ion-logo-instagram ui-w-30 text-center text-instagram"></i> {{ teacher.instagram_link }}
+            </a>
+          </div>
+        </div>
+        <!-- / Side info -->
+      </div>
+    </div>
+
+  </div>
+  <!-- / Content -->
+</div>
+{% endblock %}

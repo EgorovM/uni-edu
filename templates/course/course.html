@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base-with-sidenav.html' %}
 {% load static %}
 {% load humanize %}
 
@@ -17,7 +17,7 @@
         <h1 class="font-weight-bold">
           {{ course.name }}
         </h1>
-        <!-- Tags -->
+        <p class="text-muted">Преподаватель: <a href="{% url 'teacher' course.teacher.id %}"><span class="text-dark">{{course.teacher.name}}</span></a></p>
         <div class="d-flex small">
           <a href="#" class="badge badge-outline-default d-block font-weight-normal mt-2 mr-2">{{ course.get_specialization }}</a>
         </div>
@@ -26,6 +26,21 @@
 
       {{ course.description|safe }}
 
+      {% if request.user.type == 'PR' %}
+        {% if request.user.student in course.students.all %}
+          <button class="btn btn-info btn-lg mt-5" disabled>Заявка принята!</button>
+        {% elif not request.user.student in course.requests.all %}
+          <form action="{% url 'course' course.id %}" method="POST">
+            {% csrf_token %}
+            <button name="apply" type="submit" class="btn btn-success btn-lg mt-5">Подать заявку</button>
+          </form>
+        {% else %}
+          <button class="btn btn-success btn-lg mt-5" disabled>Заявка подана!</button>
+        {% endif %}
+      {% endif %}
+      {% if course.school == request.user.school %}
+        <a href="{% url 'edit_course' course.id %}" class="btn btn-warning btn-round text-dark mt-4">Редактировать</a>
+      {% endif %}
     </div>
   </div>
 </div>

@@ -8,5 +8,11 @@ from . import views
 
 urlpatterns = [
     path('courses/', views.courses, name='courses'),
-    path('course/<int:id>', views.course, name='course')
+    path('course/<int:id>', views.course, name='course'),
+
+    path('courses_requests', views.courses_requests, name='courses_requests'),
+    path('my_courses', views.my_courses, name='my_courses'),
+
+    #API
+    path('attendance_mark', views.attendance_mark, name='mark_attendance')
 ]

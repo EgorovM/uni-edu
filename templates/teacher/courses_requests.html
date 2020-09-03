@@ -1,0 +1,60 @@
+{% extends 'base-with-sidenav.html' %}
+
+{% block content %}
+
+<div class="layout-content">
+
+  <!-- Content -->
+  <div class="container-fluid flex-grow-1 container-p-y">
+
+    <h4 class="d-flex flex-wrap justify-content-between align-items-center w-100 font-weight-bold pt-2 mb-4">
+      <div class="col-12 col-md px-0 pb-2">Поданные заявки</div>
+      <div class="col-12 col-md-3 px-0 pb-2">
+        <input type="text" class="form-control" placeholder="Поиск...">
+      </div>
+    </h4>
+
+    {% for course in teacher.course_set.all %}
+      <h6 class="text-muted small font-weight-bold py-3 my-4">
+        {{ course.name }}
+      </h6>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Имя</th>
+            <th>Школа</th>
+            <th>Телефон</th>
+            <th>Почта</th>
+            <th>Телефон родителя</th>
+            <th>Решение</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in course.requests.all %}
+            <tr>
+              <th scope="row">{{for.count}}</th>
+              <td>{{student.name}}</td>
+              <td>{{student.school}}</td>
+              <td>{{student.telephone}}</td>
+              <td>{{student.email}}</td>
+              <td>{{student.parent_telephone}}</td>
+
+              <form action="{% url 'courses_requests' %}" method="POST">
+                {% csrf_token %}
+                <td>
+                  <input type="text" name="course_id" value="{{course.id}}" hidden>
+                  <input type="text" name="student_id" value="{{student.id}}" hidden>
+                  <button name="access" type="submit" class="btn btn-sm btn-outline-success">Принять</button>
+                  <button name="reject" type="submit" class="btn btn-sm btn-outline-danger">Отклонить</button>
+                </td>
+              </form>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

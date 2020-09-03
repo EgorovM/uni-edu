@@ -1,7 +1,12 @@
+import re
+
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from djrichtextfield.models import RichTextField
+
+
+User = get_user_model()
 
 
 class School(models.Model):
@@ -15,7 +20,7 @@ class School(models.Model):
 
     type = models.CharField(max_length=2, choices=EDU_TYPES)
     image = models.ImageField(upload_to='school/')
-    name = models.CharField(max_length=255)
+
     description = RichTextField()
     address = models.CharField(max_length=255)
     telephone = models.CharField(max_length=11)
@@ -43,6 +48,10 @@ class School(models.Model):
 
         return f"+{tel[0]} ({tel[1:5]}) {tel[5:7]}-{tel[7:9]}-{tel[9:]}"
 
+    @property
+    def name(self):
+        return self.user.name
+
 
 class Advert(models.Model):
     school = models.ForeignKey('School', on_delete=models.CASCADE)
@@ -55,7 +64,22 @@ class Advert(models.Model):
     def __str__(self):
         return f"{self.title}"
 
+    def from_request(request):
+        advert = Advert()
+        advert.fill_by_request(request)
+
+        return advert
+
+    def fill_by_request(self, request):
+        fields = ['title', 'content']
+
+        for field in fields:
+            if field in request.POST:
+                setattr(self, field, request.POST[field])
+
+        if 'image' in request.FILES:
+            self.image = request.FILES['image']
+
     @property
     def short_desc(self):
-        #TODO
-        return self.content
+        return re.search(r'(<p.+?</p>)', self.content).group(0)

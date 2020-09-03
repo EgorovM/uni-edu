@@ -24,6 +24,7 @@ urlpatterns = [
 
     path('', include('course.urls')),
     path('', include('school.urls')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
 
     path('djrichtextfield/', include('djrichtextfield.urls')),
 ]

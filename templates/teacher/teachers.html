@@ -1,0 +1,103 @@
+{% extends 'base-with-sidenav.html' %}
+
+{% block content %}
+<!-- Layout content -->
+<div class="layout-content">
+
+  <!-- Content -->
+  <div class="container-fluid flex-grow-1 container-p-y">
+
+    <h4 class="font-weight-bold py-3 mb-4">
+      Сотрудники
+    </h4>
+
+    <div class="d-flex flex-wrap justify-content-between ui-bordered px-3 pt-3 mb-4">
+      <div>
+
+        <!-- View toggle -->
+        <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
+          <label class="btn btn-default icon-btn md-btn-flat active">
+            <input type="radio" name="contacts-view" value="contacts-col-view" checked> <span class="ion ion-md-apps"></span>
+          </label>
+          <label class="btn btn-default icon-btn md-btn-flat">
+            <input type="radio" name="contacts-view" value="contacts-row-view"> <span class="ion ion-md-menu"></span>
+          </label>
+        </div>
+        <!-- / View toggle -->
+
+      </div>
+      <input type="text" class="form-control mb-3" placeholder="Search..." style="max-width: 200px;">
+    </div>
+
+    <!-- Set `.contacts-col-view` or '.contacts-row-view' to control view mode -->
+    <div class="row contacts-col-view">
+      {% for teacher in teachers %}
+        <div class="contacts-col col-12">
+
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="contacts-dropdown btn-group">
+                <button type="button" class="btn btn-sm btn-default icon-btn borderless btn-round md-btn-flat dropdown-toggle hide-arrow" data-toggle="dropdown">
+                  <i class="ion ion-ios-more"></i>
+                </button>
+                <div class="contacts-dropdown-menu dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="{% url 'edit_teacher' teacher.id %}">Редактировать</a>
+                </div>
+              </div>
+
+              <div class="contact-content">
+                <img src="/media/{{teacher.image}}" class="contact-content-img rounded-circle" alt="" style="object-fit: cover">
+                <div class="contact-content-about">
+                  <h5 class="contact-content-name mb-1"><a href="{% url 'teacher' teacher.id %}" class="text-dark">{{teacher.name}}</a></h5>
+                  <div class="contact-content-user text-muted small mb-2">{{teacher.email}}</div>
+                  <div class="small">
+                    Контакты <br>
+                    {{teacher.pretty_telephone}}
+                  </div>
+                  <hr class="border-light">
+                  <div>
+                    <a href="javascript:void(0)" class="text-secondary"><span class="ion ion-md-mail"></span></a> &nbsp;&nbsp;
+                    <a href="javascript:void(0)" class="text-secondary"><span class="ion ion-ios-chatbubbles"></span></a> &nbsp;&nbsp;
+                    <span class="text-lighter">|</span> &nbsp;&nbsp;
+                    <a href="javascript:void(0)" class="text-twitter"><span class="ion ion-logo-twitter"></span></a> &nbsp;&nbsp;
+                    <a href="javascript:void(0)" class="text-facebook"><span class="ion ion-logo-facebook"></span></a> &nbsp;&nbsp;
+                    <a href="javascript:void(0)" class="text-instagram"><span class="ion ion-logo-instagram"></span></a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      {% endfor %}
+    </div><!-- / .row -->
+
+  </div>
+  <!-- / Content -->
+</div>
+
+<script type="text/javascript">
+$(function() {
+
+  var $container = $('.contacts-row-view, .contacts-col-view');
+
+  // Initial setup
+  $container
+    .removeClass('contacts-row-view contacts-col-view')
+    .addClass($('[name="contacts-view"]').val());
+
+  $('[name="contacts-view"]').on('change', function() {
+    $container
+      .removeClass('contacts-row-view contacts-col-view')
+      .addClass(this.value);
+  });
+
+  if ($('html').attr('dir') === 'rtl') {
+    $('.contacts-dropdown-menu').removeClass('dropdown-menu-right');
+  }
+
+});
+
+</script>
+{% endblock %}
