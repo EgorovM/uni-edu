@@ -5,6 +5,11 @@ from school.models import School, Advert
 from course.models import Course, Teacher
 
 
+
+def index(request):
+    return render(request, 'main/index.html', locals())
+
+    
 def schools(request):
     type = request.GET.get('type', '')
     schools = School.objects.filter(type__startswith=type)
