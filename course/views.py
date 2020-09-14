@@ -9,6 +9,7 @@ from student.models import Student
 from school.models import School
 
 
+@login_required()
 def courses(request):
     type = request.GET.get('type', '')
 
@@ -17,6 +18,7 @@ def courses(request):
     return render(request, 'course/courses.html', locals())
 
 
+@login_required()
 def course(request, id):
     course = Course.objects.get(id=id)
 
@@ -77,6 +79,7 @@ def my_courses(request):
     return render(request, 'course/my_courses.html', locals())
 
 
+@login_required()
 def attendance_mark(request):
     student_id = request.GET.get('student_id')
     course_id = request.GET.get('course_id')

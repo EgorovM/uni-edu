@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
@@ -7,9 +8,10 @@ from course.models import Course, Teacher
 
 
 def index(request):
-    return render(request, 'main/index.html', locals())
+    return redirect('/courses')
 
-    
+
+@login_required()
 def schools(request):
     type = request.GET.get('type', '')
     schools = School.objects.filter(type__startswith=type)
@@ -19,12 +21,14 @@ def schools(request):
     return render(request, 'school/schools.html', locals())
 
 
+@login_required()
 def school(request, id):
     school = School.objects.get(id=id)
 
     return render(request, 'school/profile.html', locals())
 
 
+@login_required()
 def adverts(request):
     school_name = request.GET.get('school_name', '')
     adverts = Advert.objects.filter(school__user__name__startswith=school_name).order_by('pub_date')
@@ -32,11 +36,13 @@ def adverts(request):
     return render(request, 'advert/adverts.html', locals())
 
 
+@login_required()
 def advert(request, id):
     advert = Advert.objects.get(id=id)
     return render(request, 'advert/advert.html', locals())
 
 
+@login_required()
 def add_advert(request):
     school = School.objects.get(user=request.user)
 
@@ -51,6 +57,7 @@ def add_advert(request):
     return render(request, 'advert/edit_advert.html', locals())
 
 
+@login_required()
 def edit_advert(request, id):
     school = School.objects.get(user=request.user)
     advert = Advert.objects.get(id=id)
@@ -74,6 +81,7 @@ def edit_advert(request, id):
     return render(request, 'advert/edit_advert.html', locals())
 
 
+@login_required()
 def add_course(request):
     school = School.objects.get(user=request.user)
     teachers = Teacher.objects.filter(school=school)
@@ -90,6 +98,7 @@ def add_course(request):
     return render(request, 'course/edit_course.html', locals())
 
 
+@login_required()
 def edit_course(request, id):
     school = School.objects.get(user=request.user)
     course = Course.objects.get(id=id)
@@ -115,11 +124,13 @@ def edit_course(request, id):
     return render(request, 'course/edit_course.html', locals())
 
 
+@login_required()
 def teachers(request, school_id):
     teachers = Teacher.objects.filter(school__id=school_id)
     return render(request, 'teacher/teachers.html', locals())
 
 
+@login_required()
 def teacher(request, id):
     teacher = Teacher.objects.get(id=id)
     title = teacher.name
@@ -127,6 +138,7 @@ def teacher(request, id):
     return render(request, 'teacher/profile.html', locals())
 
 
+@login_required()
 def add_teacher(request):
     school = School.objects.get(user=request.user)
 
@@ -142,6 +154,7 @@ def add_teacher(request):
     return render(request, 'teacher/edit_teacher.html', locals())
 
 
+@login_required()
 def edit_teacher(request, id):
     teacher = Teacher.objects.get(id=id)
 
