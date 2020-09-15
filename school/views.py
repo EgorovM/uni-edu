@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
 from school.models import School, Advert
-from course.models import Course, Teacher
+from course.models import Course, Teacher, CourseAttendance
 
 
 
@@ -103,6 +103,8 @@ def add_course(request):
             course = Course.from_request(request)
             course.school = school
             course.save()
+            
+            CourseAttendance.objects.create(course=course)
 
             return redirect(reverse_lazy('course', kwargs={"id": course.id}))
 
