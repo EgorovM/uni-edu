@@ -2,7 +2,7 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from course.models import Course, Teacher, Feedback, CourseAttendance
 from student.models import Student
@@ -100,3 +100,15 @@ def attendance_mark(request):
         course_attendane.save()
 
     return HttpResponse('success')
+
+
+def update_attendance_days(request):
+    secret_key = request.GET.get('secret_key', None)
+
+    if secret_key == "axaxloleslivslomaesh":
+        for course in Course.objects.all():
+            CourseAttendance.objects.create(course=course)
+
+            return JsonResponse({'error_text': 'ok'})
+
+    return JsonResponse({'error_text': 'invalid secret key'})

@@ -11,7 +11,7 @@ urlpatterns = [
     path('schools/', views.schools, name='schools'),
     path('school/<int:id>', views.school, name='school'),
     path('edit_info/', views.edit_info, name='edit-info'),
-    
+
     path('adverts/', views.adverts, name='adverts'),
     path('advert/<int:id>', views.advert, name='advert'),
     path('add_advert/', views.add_advert, name='add_advert'),
