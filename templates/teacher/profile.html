@@ -124,7 +124,7 @@
             <a href="javascript:void(0)" class="btn icon-btn btn-default md-btn-flat btn-round">
               <span class="ion ion-md-mail"></span>
             </a>
-            {% if teacher.school == request.user.school or teacher == request.user.teacher %}<a href="{% url 'edit_teacher' teacher.id %}" class="btn btn-warning text-dark ml-3">Редактировать</a>{% endif %}
+            {% if request.user.type == "SH" and teacher.school == request.user.school %}<a href="{% url 'edit_teacher' teacher.id %}" class="btn btn-warning text-dark ml-3">Редактировать</a>{% endif %}
           </div>
           <hr class="border-light m-0">
           <div class="card-body">

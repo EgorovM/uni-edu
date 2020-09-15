@@ -16,10 +16,9 @@
       {% csrf_token %}
       <div class="card">
         <div class="card-body media align-items-center">
-          <img src="/media/{{request.user.image}}" class="d-block ui-w-40 rounded-circle" alt="">
           <div class="media-body ml-3">
             <a href="javascript:void(0)" class="d-block text-dark">
-              <strong>{{request.user.name}}</strong>
+              <strong>{{course.name}}</strong>
             </a>
             {{course.pub_date}}
           </div>
@@ -56,7 +55,7 @@
           </div>
           <div class="form-group">
             <label class="form-label">Максимальное количество детей</label>
-            <input name="max_count" type="number" class="form-control" value="{{course.max_count}}">
+            <input name="max_count" type="number" class="form-control" value="{{course.max_count}}" required>
           </div>
         </div>
       </div>

@@ -55,17 +55,18 @@
           <input name="email" type="email" class="form-control" required>
         </div>
         <div class="form-group">
+          <label class="form-label">Телефон ответственного</label>
+          <input name="parent_telephone" type="tel" class="form-control" pattern="79[0-9]{9}" required>
+          <small class="form-text text-muted">Пример: 79142639094</small>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Почта ответственного</label>
+          <input name="parent_email" type="email" class="form-control" required>
+        </div>
+        <div class="form-group">
           <label class="form-label">Фото</label>
           <input name="image" type="file" accept="image/*" required>
         </div>
-        <!-- <div class="form-group">
-          <label class="form-label">Роль</label>
-          <select name="school" class="form-control">
-            {% for role, role_name in accounts_types %}
-              <option value="{{role}}">{{role_name}}</option>
-            {% endfor %}
-          </select>
-        </div> -->
         <button type="submit" class="btn btn-primary btn-block mt-4">Регистрация</button>
         <div class="bg-lightest text-muted small p-2 mt-4">
           Нажимая "Регистрация", вы принимаете

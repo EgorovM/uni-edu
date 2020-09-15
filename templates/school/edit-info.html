@@ -1,0 +1,111 @@
+{% extends 'base-with-sidenav.html' %}
+
+{% block content %}
+
+<div class="layout-content">
+
+  <!-- Content -->
+  <div class="container-fluid flex-grow-1 container-p-y">
+
+    <h4 class="font-weight-bold py-3 mb-4">
+      <span>{{school.name}}</span>
+    </h4>
+
+    <form action="{% url 'edit-info' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="card">
+        <div class="card-body media align-items-center">
+
+          <img src="/media/{{school.image}}" class="d-block rounded-circle mr-3" alt="" style="width: 3em; height: 3em; object-fit: cover">
+          <div class="media-body">
+            <a href="{% url 'school' school.id %}" class="d-block text-dark">
+              <strong>{{school.name}}</strong>
+            </a>
+            {{teacher.pub_date}}
+          </div>
+        </div>
+        <hr class="m-0">
+        <div class="card-body pb-2">
+          <div class="form-group">
+            <label class="form-label">Наименование</label>
+            <input name="name" type="text" class="form-control" value="{{school.name}}">
+          </div>
+          <div class="form-group">
+            <label class="form-label mr-4">Изображение</label>
+            <input name="image" type="file" accept="image/*">
+          </div>
+          <div class="form-group">
+            <label class="form-label">День основания</label>
+            <input name="foundation_date" type="date" class="form-control" value="{{school.foundation_date| date:'Y-m-d'}}" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Директор</label>
+            <input name="headteacher" type="text" class="form-control" value="{{school.headteacher}}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Заместитель директора</label>
+            <input name="subheadteacher" type="text" class="form-control" value="{{school.subheadteacher}}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Адрес</label>
+            <input name="address" type="text" class="form-control" value="{{school.address}}">
+            <span class="form-text small text-muted">Обязательно в таком порядке: 678450, г. Нюрба, ул. Степана-Васильева, д.11</span>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label class="form-label">Минимальный класс</label>
+              <input name="min_grade" type="number" class="form-control" value="{{school.min_grade}}">
+            </div>
+            <div class="form-group col-md-6">
+              <label class="form-label">Максимальный класс</label>
+              <input name="max_grade" type="number" class="form-control" value="{{school.max_grade}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Текущее количество детей</label>
+            <input name="child_amount" type="number" class="form-control" value="{{school.child_amount}}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Описание</label>
+            <textarea name="description" class="form-control" id="mytextarea">{{school.description | safe}}</textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Телефон</label>
+            <input name="telephone" type="tel" class="form-control" value="{{school.telephone}}" pattern="79[0-9]{9}">
+            <span class="form-text small text-muted">Например: 79142639094</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Почта</label>
+            <input name="email" type="email" class="form-control" value="{{school.email}}">
+          </div>
+          <div class="form-g roup">
+            <label class="form-label">Сайт</label>
+            <input name="site" type="text" class="form-control" value="{{school.site}}">
+          </div>
+        </div>
+      </div>
+
+      <div class="text-right mt-3">
+        {% if teacher %}
+          <button type="submit" name="delete" class="btn btn-danger">Удалить</button>
+        {% endif %}
+        <button type="submit" name="save" class="btn btn-primary">Сохранить</button>&nbsp;
+      </div>
+    </form>
+
+  </div>
+  <!-- / Content -->
+</div>
+<!-- Layout content -->
+
+<script src="https://cdn.tiny.cloud/1/8ljhhcb398ijjqgrxg4xuknn9u6ygpg9v1f5s5auyh8n7c6h/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+  tinymce.init({
+    selector: '#mytextarea',
+    plugins: 'autoresize',
+  });
+</script>
+
+
+{% endblock %}

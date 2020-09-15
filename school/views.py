@@ -29,6 +29,17 @@ def school(request, id):
 
 
 @login_required()
+def edit_info(request):
+    school = School.objects.get(user=request.user)
+
+    if request.method == "POST":
+        if "save" in request.POST:
+            school.fill_by_request(request)
+
+    return render(request, 'school/edit-info.html', locals())
+
+
+@login_required()
 def adverts(request):
     school_name = request.GET.get('school_name', '')
     adverts = Advert.objects.filter(school__user__name__startswith=school_name).order_by('pub_date')
@@ -156,7 +167,11 @@ def add_teacher(request):
 
 @login_required()
 def edit_teacher(request, id):
+    school = School.objects.get(user=request.user)
     teacher = Teacher.objects.get(id=id)
+
+    if teacher.school != school:
+        return redirect('/bad_access')
 
     if request.method == "POST":
         if 'save' in request.POST:
@@ -164,6 +179,8 @@ def edit_teacher(request, id):
             teacher.save()
 
         elif 'delete' in request.POST:
-            teacher.delete()
+            teacher.user.delete()
+
+            return redirect(reverse_lazy('teachers', kwargs={"school_id": school.id}))
 
     return render(request, 'teacher/edit_teacher.html', locals())

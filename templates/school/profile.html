@@ -36,8 +36,12 @@
               <td>{{school.address}}</td>
             </tr>
             <tr>
-              <td>Количество детей:</td>
+              <td>Количество обучаущихся детей:</td>
               <td>{{school.child_amount}}</td>
+            </tr>
+            <tr>
+              <td>Количество зарегистрированных детей:</td>
+              <td>{{school.student_set.all|length}}</td>
             </tr>
             <tr>
               <td>Количество курсов:</td>
@@ -53,40 +57,6 @@
         </table>
       </div>
       <hr class="border-light m-0">
-      <div class="table-responsive">
-        <table class="table card-table m-0">
-          <tbody>
-            <tr>
-              <th>Учебные дни</th>
-              <th>Математика </th>
-              <th>Физика </th>
-              <th>Информатика </th>
-              <th>Биология </th>
-            </tr>
-            <tr>
-              <td>5 класс</td>
-              <td><span class="ion ion-md-checkmark text-primary"></span></td>
-              <td><span class="ion ion-md-close text-light"></span></td>
-              <td><span class="ion ion-md-close text-light"></span></td>
-              <td><span class="ion ion-md-close text-light"></span></td>
-            </tr>
-            <tr>
-              <td>6 класс</td>
-              <td><span class="ion ion-md-checkmark text-primary"></span></td>
-              <td><span class="ion ion-md-checkmark text-primary"></span></td>
-              <td><span class="ion ion-md-checkmark text-primary"></span></td>
-              <td><span class="ion ion-md-close text-light"></span></td>
-            </tr>
-            <tr>
-              <td>7 класс</td>
-              <td><span class="ion ion-md-close text-light"></span></td>
-              <td><span class="ion ion-md-close text-light"></span></td>
-              <td><span class="ion ion-md-close text-light"></span></td>
-              <td><span class="ion ion-md-close text-light"></span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
 
     <div class="card">
@@ -120,11 +90,11 @@
           <tbody>
             <tr>
               <td>Директор:</td>
-              <td>{{school.head}}</td>
+              <td>{{school.headteacher}}</td>
             </tr>
             <tr>
               <td>Заместитель директора:</td>
-              <td>{{school.subhead}}</td>
+              <td>{{school.subheadteacher}}</td>
             </tr>
           </tbody>
         </table>
@@ -135,7 +105,7 @@
           <tbody>
             <tr>
               <td>Дата основания:</td>
-              <td>3 мая 1995</td>
+              <td>{{school.foundation_date}}</td>
             </tr>
           </tbody>
         </table>

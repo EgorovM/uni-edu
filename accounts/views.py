@@ -40,7 +40,7 @@ def register(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        if authenticate(username=username, password=password) is None:
+        if User.objects.filter(username=username).count() == 0:
             user = User.objects.create_user(
                 username=username,
                 name=request.POST['name'],

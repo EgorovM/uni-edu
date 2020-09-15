@@ -152,6 +152,11 @@
               {% elif user.type == 'PR' %}
               {% elif user.type == 'SH' %}
               <li class="sidenav-item">
+                <a href="{% url 'edit-info' %}" class="sidenav-link">
+                  <div>О себе</div>
+                </a>
+              </li>
+              <li class="sidenav-item">
                 <a href="{% url 'adverts' %}?school_name={{request.user.name}}" class="sidenav-link">
                   <div>Мои объявления</div>
                 </a>
@@ -269,13 +274,13 @@
                   <span class="dropdown-item">{{request.user.full_type}}</span>
                   {% if request.user.type == "SH" %}
                     <a href="{% url 'school' request.user.school.id %}" class="dropdown-item"><i class="ion ion-ios-person text-lightest"></i> &nbsp; Мой профиль</a>
-                    <a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-md-settings text-lightest"></i> &nbsp; Настройки</a>
+                    <!-- <a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-md-settings text-lightest"></i> &nbsp; Настройки</a> -->
                   {% elif request.user.type == "TH" %}
                     <a href="{% url 'teacher' request.user.teacher.id %}" class="dropdown-item"><i class="ion ion-ios-person text-lightest"></i> &nbsp; Мой профиль</a>
-                    <a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-md-settings text-lightest"></i> &nbsp; Настройки</a>
+                    <!-- <a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-md-settings text-lightest"></i> &nbsp; Настройки</a> -->
                   {% elif request.user.type == "PR"%}
                     <a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-ios-person text-lightest"></i> &nbsp; Мой профиль</a>
-                    <a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-md-settings text-lightest"></i> &nbsp; Настройки</a>
+                    <!-- <a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-md-settings text-lightest"></i> &nbsp; Настройки</a> -->
                   {% endif %}
                   <div class="dropdown-divider"></div>
                   <a href="{% url 'accounts:logout' %}" class="dropdown-item"><i class="ion ion-ios-log-out text-danger"></i> &nbsp; Выйти</a>

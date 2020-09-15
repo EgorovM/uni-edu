@@ -87,10 +87,13 @@ class Teacher(models.Model):
 
     def from_request(request, school):
         teacher = Teacher()
-        teacher.fill_by_request(request)
 
-        number_in_school = Teacher.objects.filter(school=school).count() + 1
+        number_in_school = 1
         username = f'{school.user.username}_{number_in_school}'
+
+        while User.objects.filter(username=username).count() > 0:
+            number_in_school += 1
+            username = f'{school.user.username}_{number_in_school}'
 
         user = User.objects.create_user(
             username=username,
@@ -98,8 +101,9 @@ class Teacher(models.Model):
             password='password_' + username,
             type='TH',
         )
-
         teacher.user = user
+
+        teacher.fill_by_request(request)
 
         return teacher
 
@@ -116,7 +120,7 @@ class Teacher(models.Model):
 
         if not self.user is None:
             self.user.name = request.POST['name']
-            
+
         setattr(self, 'birthday', birthday)
 
         if 'image' in request.FILES:
@@ -129,7 +133,9 @@ class Teacher(models.Model):
     @property
     def pretty_telephone(self):
         tel = self.telephone
-        return f"+{tel[0]} ({tel[1:4]}) {tel[4:7]} {tel[7:]}"
+
+        if len(tel) == 1:
+            return f"+{tel[0]} ({tel[1:4]}) {tel[4:7]} {tel[7:]}"
 
     @property
     def languages(self):

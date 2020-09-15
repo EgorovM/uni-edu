@@ -19,8 +19,9 @@
         <h6 class="text-muted small font-weight-bold">
           {{ course.name }}
         </h6>
+        {% if request.user.type == "SH" %}
         <a class="small" href="{% url 'edit_course' course.id %}"> Редактировать</a>
-
+        {% endif %}
       </div>
       <div class="card">
         <div class="card-header">Список на {{today}}</div>
