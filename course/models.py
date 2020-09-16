@@ -134,7 +134,7 @@ class Teacher(models.Model):
     def pretty_telephone(self):
         tel = self.telephone
 
-        if len(tel) == 1:
+        if len(tel) == 11:
             return f"+{tel[0]} ({tel[1:4]}) {tel[4:7]} {tel[7:]}"
 
     @property
