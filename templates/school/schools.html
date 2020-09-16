@@ -9,22 +9,18 @@
   <div class="container-fluid flex-grow-1 container-p-y">
 
     <h4 class="d-flex flex-wrap justify-content-between align-items-center w-100 font-weight-bold pt-2 mb-4">
-      <div class="col-12 col-md px-0 pb-2">{{full_type}}</div>
+      <div class="col-12 col-md px-0 pb-2">Учреждения Нюрбинского района</div>
       <div class="col-12 col-md-3 px-0 pb-2">
         <input type="text" class="form-control" placeholder="Search...">
       </div>
     </h4>
 
     <ul class="nav bg-lighter container-p-x py-1 container-m--x mb-4">
-      <li class="nav-item">
-        <a class="nav-link text-dark font-weight-bold pl-0" href="{% url 'schools' %}?type=SE">Школы</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-muted" href="{% url 'schools' %}?type=CE">Детские сады</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-muted" href="{% url 'schools' %}?type=AE">Дополнительное образование</a>
-      </li>
+      {% for key, name in TYPES %}
+        <li class="nav-item">
+          <a class="nav-link text-dark pl-0 {% if key == type %}font-weight-bold{% endif %}" href="{% url 'schools' %}?type={{key}}">{{name}}</a>
+        </li>
+      {% endfor %}
     </ul>
 
     <div class="card mb-4">

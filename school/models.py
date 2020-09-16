@@ -12,9 +12,9 @@ User = get_user_model()
 
 class School(models.Model):
     EDU_TYPES = (
-        ('CE', 'Детское образовательное учреждение'),
+        ('CE', 'Дошкольное образовательное учреждение'),
         ('SE', 'Образовательное учреждение'),
-        ('AE', 'Дополнительное образование')
+        ('AE', 'Учреждение дополнительного образования детей')
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)

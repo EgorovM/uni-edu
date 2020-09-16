@@ -16,6 +16,7 @@ def schools(request):
     type = request.GET.get('type', '')
     schools = School.objects.filter(type__startswith=type)
 
+    TYPES = School.EDU_TYPES
     full_type = dict(School.EDU_TYPES)[type]
 
     return render(request, 'school/schools.html', locals())
@@ -103,7 +104,7 @@ def add_course(request):
             course = Course.from_request(request)
             course.school = school
             course.save()
-            
+
             CourseAttendance.objects.create(course=course)
 
             return redirect(reverse_lazy('course', kwargs={"id": course.id}))

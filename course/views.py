@@ -12,8 +12,9 @@ from school.models import School
 @login_required()
 def courses(request):
     type = request.GET.get('type', '')
-
     courses = Course.objects.filter(school__type__startswith=type)
+
+    TYPES = School.EDU_TYPES
 
     return render(request, 'course/courses.html', locals())
 
